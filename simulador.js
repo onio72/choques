@@ -122,13 +122,6 @@ function updatePositions() {
     v1 = v3 = vFinal;
     collided = true;
     x1 = x2 - radius1 - radius2; // Coloca las bolas juntas
-    // Actualiza la tabla con los valores después de la colisión
-    tableCells.momentoAzulDespues.textContent = (mass1 * v1).toFixed(2);
-    tableCells.momentoRojaDespues.textContent = (mass2 * v3).toFixed(2);
-    tableCells.momentoTotalDespues.textContent = (mass1 * v1 + mass2 * v3).toFixed(2);
-    tableCells.ecAzulDespues.textContent = (0.5 * mass1 * v1 * v1).toFixed(2);
-    tableCells.ecRojaDespues.textContent = (0.5 * mass2 * v3 * v3).toFixed(2);
-    tableCells.ecTotalDespues.textContent = (0.5 * mass1 * v1 * v1 + 0.5 * mass2 * v3 * v3).toFixed(2);
   }
 
   if (!collided) {
@@ -163,7 +156,6 @@ startButton.onclick = () => {
   paused = false;
   slowMotion = false;
   collided = false; // Reset the collision flag
-  draw(); // Asegura que las bolas se dibujen al iniciar
   document.getElementById('questionSection').style.display = 'block'; // Muestra la sección de preguntas
   resetQuestions();
   animate();
