@@ -14,16 +14,6 @@ const pauseButton = document.getElementById('pauseButton');
 const resetButton = document.getElementById('resetButton');
 const slowButton = document.getElementById('slowButton');
 
-const question1 = document.getElementById('question1');
-const answer1 = document.getElementById('answer1');
-const submitAnswer1 = document.getElementById('submitAnswer1');
-const feedback1 = document.getElementById('feedback1');
-
-const question2 = document.getElementById('question2');
-const answer2 = document.getElementById('answer2');
-const submitAnswer2 = document.getElementById('submitAnswer2');
-const feedback2 = document.getElementById('feedback2');
-
 const correctAnswers = document.getElementById('correctAnswers');
 
 let correctAnswerCount = 0;
@@ -110,4 +100,107 @@ function updatePositions() {
     const vFinal = (mass1 * v1 + mass2 * v2) / (mass1 + mass2);
     v1 = v2 = vFinal;
     collided = true;
-    x1 = x2 - radius1 - radius2; // Coloca las bolas junta
+    x1 = x2 - radius1 - radius2; // Coloca las bolas juntas
+  }
+
+  if (!collided) {
+    x1 += v1;
+  } else {
+    x1 += v1;
+    x2 = x1 + radius1 + radius2;
+  }
+
+  // Si las bolas han salido del borde derecho, detener la animación
+  if (x1 - radius1 > canvas.width && x2 - radius2 > canvas.width) {
+    paused = true;
+    cancelAnimationFrame(animationId);
+  }
+}
+
+function animate() {
+  if (!paused) {
+    updatePositions();
+    draw();
+    if (slowMotion) {
+      setTimeout(() => {
+        animationId = requestAnimationFrame(animate);
+      }, 100);
+    } else {
+      animationId = requestAnimationFrame(animate);
+    }
+  }
+}
+
+startButton.onclick = () => {
+  paused = false;
+  slowMotion = false;
+  animate();
+};
+
+pauseButton.onclick = () => {
+  paused = true;
+  cancelAnimationFrame(animationId);
+};
+
+resetButton.onclick = () => {
+  paused = true;
+  cancelAnimationFrame(animationId);
+  x1 = 100;
+  x2 = 500;
+  v1 = speed1;
+  v2 = 0;
+  collided = false;
+  draw();
+};
+
+slowButton.onclick = () => {
+  paused = false;
+  slowMotion = true;
+  animate();
+};
+
+// Preguntas y respuestas
+
+let currentQuestion = 1;
+
+function checkAnswer(questionNumber, correctAnswer) {
+  const answerInput = document.getElementById(`answer${questionNumber}`);
+  const feedback = document.getElementById(`feedback${questionNumber}`);
+  const userAnswer = questionNumber <= 4 ? parseFloat(answerInput.value) : answerInput.value.trim().toLowerCase();
+
+  if (userAnswer === correctAnswer || userAnswer === String(correctAnswer).toLowerCase()) {
+    feedback.textContent = 'Correcto!';
+    correctAnswerCount++;
+    correctAnswers.textContent = correctAnswerCount;
+    showNextQuestion();
+  } else {
+    let hint = '';
+    if (questionNumber === 1 || questionNumber === 2) {
+      hint = ' Para calcular el momento lineal debes multiplicar la masa por la velocidad.';
+    }
+    feedback.textContent = `Incorrecto.${hint}`;
+  }
+}
+
+function showNextQuestion() {
+  const currentQuestionElement = document.getElementById(`question${currentQuestion}`);
+  currentQuestionElement.style.display = 'none';
+  currentQuestion++;
+  if (currentQuestion <= 10) {
+    const nextQuestionElement = document.getElementById(`question${currentQuestion}`);
+    nextQuestionElement.style.display = 'block';
+  }
+}
+
+submitAnswer1.onclick = () => checkAnswer(1, mass1 * v1);
+submitAnswer2.onclick = () => checkAnswer(2, mass2 * v2);
+submitAnswer3.onclick = () => checkAnswer(3, mass1 * v1 + mass2 * v2);
+submitAnswer4.onclick = () => checkAnswer(4, (mass1 + mass2) * v1);
+submitAnswer5.onclick = () => checkAnswer(5, 'sí');
+submitAnswer6.onclick = () => checkAnswer(6, 0.5 * mass1 * Math.pow(v1, 2));
+submitAnswer7.onclick = () => checkAnswer(7, 0.5 * mass2 * Math.pow(v2, 2));
+submitAnswer8.onclick = () => checkAnswer(8, 0.5 * mass1 * Math.pow(v1, 2) + 0.5 * mass2 * Math.pow(v2, 2));
+submitAnswer9.onclick = () => checkAnswer(9, 0.5 * (mass1 + mass2) * Math.pow(v1, 2));
+submitAnswer10.onclick = () => checkAnswer(10, 'no');
+
+draw();
