@@ -14,6 +14,20 @@ const pauseButton = document.getElementById('pauseButton');
 const resetButton = document.getElementById('resetButton');
 const slowButton = document.getElementById('slowButton');
 
+const question1 = document.getElementById('question1');
+const answer1 = document.getElementById('answer1');
+const submitAnswer1 = document.getElementById('submitAnswer1');
+const feedback1 = document.getElementById('feedback1');
+
+const question2 = document.getElementById('question2');
+const answer2 = document.getElementById('answer2');
+const submitAnswer2 = document.getElementById('submitAnswer2');
+const feedback2 = document.getElementById('feedback2');
+
+const correctAnswers = document.getElementById('correctAnswers');
+
+let correctAnswerCount = 0;
+
 let mass1 = parseInt(mass1Slider.value);
 let mass2 = parseInt(mass2Slider.value);
 let speed1 = parseInt(speed1Slider.value);
@@ -96,63 +110,4 @@ function updatePositions() {
     const vFinal = (mass1 * v1 + mass2 * v2) / (mass1 + mass2);
     v1 = v2 = vFinal;
     collided = true;
-    x1 = x2 - radius1 - radius2; // Coloca las bolas juntas
-  }
-
-  if (!collided) {
-    x1 += v1;
-  } else {
-    x1 += v1;
-    x2 = x1 + radius1 + radius2;
-  }
-
-  // Si las bolas han salido del borde derecho, detener la animación
-  if (x1 - radius1 > canvas.width || x2 - radius2 > canvas.width) {
-    paused = true;
-    cancelAnimationFrame(animationId);
-  }
-}
-
-function animate() {
-  if (!paused) {
-    updatePositions();
-    draw();
-    if (slowMotion) {
-      setTimeout(() => {
-        animationId = requestAnimationFrame(animate);
-      }, 100);
-    } else {
-      animationId = requestAnimationFrame(animate);
-    }
-  }
-}
-
-startButton.onclick = () => {
-  paused = false;
-  slowMotion = false;
-  animate();
-};
-
-pauseButton.onclick = () => {
-  paused = true;
-  cancelAnimationFrame(animationId);
-};
-
-resetButton.onclick = () => {
-  paused = true;
-  cancelAnimationFrame(animationId);
-  x1 = 100;
-  x2 = 500;
-  v1 = speed1;
-  v2 = 0;
-  collided = false;
-  draw();
-};
-
-slowButton.onclick = () => {
-  paused = false;
-  slowMotion = true;
-  animate();
-};
-
-draw();
+    x1 = x2 - radius1 - radius2; // Coloca las bolas junta

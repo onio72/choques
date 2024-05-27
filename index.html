@@ -12,6 +12,9 @@
     display: block;
     margin-top: 10px;
   }
+  #questionSection {
+    margin-top: 20px;
+  }
 </style>
 </head>
 <body>
@@ -40,6 +43,22 @@
 <br><br>
 
 <canvas id="canvas" width="800" height="400"></canvas>
+
+<div id="questionSection">
+  <div id="question1" class="question">
+    <p>¿Qué momento lineal tiene la bola azul?</p>
+    <input type="text" id="answer1" placeholder="Respuesta numérica">
+    <button id="submitAnswer1">Enviar</button>
+    <p id="feedback1"></p>
+  </div>
+  <div id="question2" class="question" style="display: none;">
+    <p>¿Cuál es tu segunda pregunta?</p>
+    <input type="text" id="answer2" placeholder="Respuesta">
+    <button id="submitAnswer2">Enviar</button>
+    <p id="feedback2"></p>
+  </div>
+  <p>Respuestas correctas: <span id="correctAnswers">0</span></p>
+</div>
 
 <script src="simulador.js"></script>
 
