@@ -33,6 +33,7 @@ let x2 = 500;
 
 let v1 = speed1;
 let v2 = 0;
+let v3 = 0;
 let collided = false;
 
 let animationId;
@@ -90,7 +91,7 @@ function drawBalls() {
   ctx.fill();
   ctx.stroke();
   ctx.font = '16px Arial';
-  ctx.fillText(`v=${v2.toFixed(2)} m/s`, x2 - 10, canvas.height / 2 - radius2 - 10);
+  ctx.fillText(`v=${v3.toFixed(2)} m/s`, x2 - 10, canvas.height / 2 - radius2 - 10);
 }
 
 function draw() {
@@ -101,7 +102,7 @@ function draw() {
 function updatePositions() {
   if (!collided && x1 + radius1 >= x2 - radius2) {
     const vFinal = (mass1 * v1 + mass2 * v2) / (mass1 + mass2);
-    v1 = v2 = vFinal;
+    v1 = v3 = vFinal;
     collided = true;
     x1 = x2 - radius1 - radius2; // Coloca las bolas juntas
   }
@@ -138,6 +139,8 @@ startButton.onclick = () => {
   paused = false;
   slowMotion = false;
   draw(); // Asegura que las bolas se dibujen al iniciar
+  document.getElementById('questionSection').style.display = 'block'; // Muestra la sección de preguntas
+  resetQuestions();
   animate();
 };
 
@@ -153,8 +156,10 @@ resetButton.onclick = () => {
   x2 = 500;
   v1 = speed1;
   v2 = 0;
+  v3 = 0;
   collided = false;
   draw();
+  resetQuestions();
 };
 
 slowButton.onclick = () => {
@@ -181,6 +186,7 @@ function checkAnswer(questionNumber, correctAnswer) {
       hint = ' Para calcular el momento lineal debes multiplicar la masa por la velocidad.';
     }
     feedback.textContent = `Incorrecto.${hint}`;
+    answerInput.value = ''; // Limpiar el campo de respuesta para permitir nuevos intentos
   }
 }
 
@@ -200,9 +206,22 @@ function updateProgressBar() {
   progressBar.style.width = progress + '%';
 }
 
+function resetQuestions() {
+  currentQuestion = 1;
+  correctAnswerCount = 0;
+  correctAnswers.textContent = correctAnswerCount;
+  for (let i = 1; i <= totalQuestions; i++) {
+    document.getElementById(`question${i}`).style.display = 'none';
+    document.getElementById(`feedback${i}`).textContent = '';
+    document.getElementById(`answer${i}`).value = '';
+  }
+  document.getElementById('question1').style.display = 'block';
+  updateProgressBar();
+}
+
 submitAnswer1.onclick = () => checkAnswer(1, mass1 * v1);
 submitAnswer2.onclick = () => checkAnswer(2, 0); // La bola roja tiene velocidad 0 antes de la colisión
-submitAnswer3.onclick = () => checkAnswer(3, mass1 * v1);
+submitAnswer3.onclick = () => checkAnswer(3, mass1 * v1 + mass2 * v2);
 submitAnswer4.onclick = () => checkAnswer(4, (mass1 + mass2) * v1);
 submitAnswer5.onclick = () => checkAnswer(5, 'sí');
 submitAnswer6.onclick = () => checkAnswer(6, 0.5 * mass1 * Math.pow(v1, 2));
