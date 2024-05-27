@@ -42,7 +42,8 @@
 </head>
 <body>
 
-<h1>Simulador de Choque de Bolas v02</h1>
+<h1>Simulador de Choque de Bolas</h1>
+<h2>Versión 10</h2>
 
 <label for="mass1" class="slider-label">Masa Bola Azul:</label>
 <input type="range" id="mass1" name="mass1" min="1" max="10" value="5">
@@ -143,8 +144,11 @@
     <p id="feedback4"></p>
   </div>
   <div id="question5" class="question" style="display: none;">
-    <p>Pregunta 5: ¿Se conserva el momento total? Sí No. Respuesta correcta, sí.</p>
-    <input type="text" id="answer5" placeholder="Respuesta"><span> (Sí/No)</span>
+    <p>Pregunta 5: ¿Se conserva el momento total?</p>
+    <input type="radio" id="answer5Yes" name="answer5" value="sí">
+    <label for="answer5Yes">Sí</label>
+    <input type="radio" id="answer5No" name="answer5" value="no">
+    <label for="answer5No">No</label>
     <button id="submitAnswer5">Enviar</button>
     <p id="feedback5"></p>
   </div>
@@ -173,8 +177,11 @@
     <p id="feedback9"></p>
   </div>
   <div id="question10" class="question" style="display: none;">
-    <p>Pregunta 10: ¿Se conserva la energía cinética total? Sí No. Respuesta correcta, no.</p>
-    <input type="text" id="answer10" placeholder="Respuesta"><span> (Sí/No)</span>
+    <p>Pregunta 10: ¿Se conserva la energía cinética total?</p>
+    <input type="radio" id="answer10Yes" name="answer10" value="sí">
+    <label for="answer10Yes">Sí</label>
+    <input type="radio" id="answer10No" name="answer10" value="no">
+    <label for="answer10No">No</label>
     <button id="submitAnswer10">Enviar</button>
     <p id="feedback10"></p>
   </div>

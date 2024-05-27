@@ -208,7 +208,13 @@ slowButton.onclick = () => {
 function checkAnswer(questionNumber, correctAnswer) {
   const answerInput = document.getElementById(`answer${questionNumber}`);
   const feedback = document.getElementById(`feedback${questionNumber}`);
-  const userAnswer = questionNumber <= 4 ? parseFloat(answerInput.value) : answerInput.value.trim().toLowerCase();
+  let userAnswer;
+  if (questionNumber === 5 || questionNumber === 10) {
+    userAnswer = document.querySelector(`input[name="answer${questionNumber}"]:checked`);
+    userAnswer = userAnswer ? userAnswer.value : null;
+  } else {
+    userAnswer = questionNumber <= 4 ? parseFloat(answerInput.value) : answerInput.value.trim().toLowerCase();
+  }
 
   if (userAnswer === correctAnswer || userAnswer === String(correctAnswer).toLowerCase()) {
     feedback.textContent = 'Correcto!';
