@@ -15,9 +15,26 @@ const resetButton = document.getElementById('resetButton');
 const slowButton = document.getElementById('slowButton');
 
 const correctAnswers = document.getElementById('correctAnswers');
+const incorrectAnswers = document.getElementById('incorrectAnswers');
 const progressBar = document.getElementById('progressBar');
 
+const tableCells = {
+  momentoAzulAntes: document.getElementById('momentoAzulAntes'),
+  momentoRojaAntes: document.getElementById('momentoRojaAntes'),
+  momentoTotalAntes: document.getElementById('momentoTotalAntes'),
+  momentoAzulDespues: document.getElementById('momentoAzulDespues'),
+  momentoRojaDespues: document.getElementById('momentoRojaDespues'),
+  momentoTotalDespues: document.getElementById('momentoTotalDespues'),
+  ecAzulAntes: document.getElementById('ecAzulAntes'),
+  ecRojaAntes: document.getElementById('ecRojaAntes'),
+  ecTotalAntes: document.getElementById('ecTotalAntes'),
+  ecAzulDespues: document.getElementById('ecAzulDespues'),
+  ecRojaDespues: document.getElementById('ecRojaDespues'),
+  ecTotalDespues: document.getElementById('ecTotalDespues')
+};
+
 let correctAnswerCount = 0;
+let incorrectAnswerCount = 0;
 let currentQuestion = 1;
 const totalQuestions = 10;
 
@@ -142,6 +159,13 @@ startButton.onclick = () => {
   document.getElementById('questionSection').style.display = 'block'; // Muestra la sección de preguntas
   resetQuestions();
   animate();
+  // Actualiza la tabla con los valores iniciales
+  tableCells.momentoAzulAntes.textContent = (mass1 * v1).toFixed(2);
+  tableCells.momentoRojaAntes.textContent = (mass2 * v2).toFixed(2);
+  tableCells.momentoTotalAntes.textContent = (mass1 * v1 + mass2 * v2).toFixed(2);
+  tableCells.ecAzulAntes.textContent = (0.5 * mass1 * v1 * v1).toFixed(2);
+  tableCells.ecRojaAntes.textContent = (0.5 * mass2 * v2 * v2).toFixed(2);
+  tableCells.ecTotalAntes.textContent = (0.5 * mass1 * v1 * v1 + 0.5 * mass2 * v2 * v2).toFixed(2);
 };
 
 pauseButton.onclick = () => {
@@ -160,6 +184,10 @@ resetButton.onclick = () => {
   collided = false;
   draw();
   resetQuestions();
+  // Limpia la tabla de valores
+  for (let key in tableCells) {
+    tableCells[key].textContent = '';
+  }
 };
 
 slowButton.onclick = () => {
@@ -179,15 +207,12 @@ function checkAnswer(questionNumber, correctAnswer) {
     feedback.textContent = 'Correcto!';
     correctAnswerCount++;
     correctAnswers.textContent = correctAnswerCount;
-    showNextQuestion();
   } else {
-    let hint = '';
-    if (questionNumber === 1 || questionNumber === 2) {
-      hint = ' Para calcular el momento lineal debes multiplicar la masa por la velocidad.';
-    }
-    feedback.textContent = `Incorrecto.${hint}`;
-    answerInput.value = ''; // Limpiar el campo de respuesta para permitir nuevos intentos
+    feedback.textContent = `Incorrecto. La respuesta correcta es ${correctAnswer}.`;
+    incorrectAnswerCount++;
+    incorrectAnswers.textContent = incorrectAnswerCount;
   }
+  showNextQuestion();
 }
 
 function showNextQuestion() {
@@ -209,7 +234,9 @@ function updateProgressBar() {
 function resetQuestions() {
   currentQuestion = 1;
   correctAnswerCount = 0;
+  incorrectAnswerCount = 0;
   correctAnswers.textContent = correctAnswerCount;
+  incorrectAnswers.textContent = incorrectAnswerCount;
   for (let i = 1; i <= totalQuestions; i++) {
     document.getElementById(`question${i}`).style.display = 'none';
     document.getElementById(`feedback${i}`).textContent = '';
@@ -222,7 +249,7 @@ function resetQuestions() {
 submitAnswer1.onclick = () => checkAnswer(1, mass1 * v1);
 submitAnswer2.onclick = () => checkAnswer(2, 0); // La bola roja tiene velocidad 0 antes de la colisión
 submitAnswer3.onclick = () => checkAnswer(3, mass1 * v1 + mass2 * v2);
-submitAnswer4.onclick = () => checkAnswer(4, mass1 * v1 + mass2 * v3); // El momento lineal después de la colisión
+submitAnswer4.onclick = () => checkAnswer(4, mass1 * v3 + mass2 * v3); // El momento lineal después de la colisión
 submitAnswer5.onclick = () => checkAnswer(5, 'sí');
 submitAnswer6.onclick = () => checkAnswer(6, 0.5 * mass1 * Math.pow(v1, 2));
 submitAnswer7.onclick = () => checkAnswer(7, 0); // La bola roja tiene velocidad 0 antes de la colisión

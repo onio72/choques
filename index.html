@@ -26,6 +26,18 @@
     height: 20px;
     background-color: #4caf50;
   }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  table, th, td {
+    border: 1px solid black;
+  }
+  th, td {
+    padding: 8px;
+    text-align: center;
+  }
 </style>
 </head>
 <body>
@@ -54,6 +66,41 @@
 <br><br>
 
 <canvas id="canvas" width="800" height="400"></canvas>
+
+<table>
+  <thead>
+    <tr>
+      <th>Momento Lineal Azul Antes</th>
+      <th>Momento Lineal Roja Antes</th>
+      <th>Momento Lineal Total Antes</th>
+      <th>Momento Lineal Azul Después</th>
+      <th>Momento Lineal Roja Después</th>
+      <th>Momento Lineal Total Después</th>
+      <th>Ec Azul Antes</th>
+      <th>Ec Roja Antes</th>
+      <th>Ec Total Antes</th>
+      <th>Ec Azul Después</th>
+      <th>Ec Roja Después</th>
+      <th>Ec Total Después</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="momentoAzulAntes"></td>
+      <td id="momentoRojaAntes"></td>
+      <td id="momentoTotalAntes"></td>
+      <td id="momentoAzulDespues"></td>
+      <td id="momentoRojaDespues"></td>
+      <td id="momentoTotalDespues"></td>
+      <td id="ecAzulAntes"></td>
+      <td id="ecRojaAntes"></td>
+      <td id="ecTotalAntes"></td>
+      <td id="ecAzulDespues"></td>
+      <td id="ecRojaDespues"></td>
+      <td id="ecTotalDespues"></td>
+    </tr>
+  </tbody>
+</table>
 
 <div id="questionSection" style="display: none;">
   <div id="question1" class="question">
@@ -120,6 +167,7 @@
     <div class="progress" id="progressBar"></div>
   </div>
   <p>Respuestas correctas: <span id="correctAnswers">0</span></p>
+  <p>Respuestas incorrectas: <span id="incorrectAnswers">0</span></p>
 </div>
 
 <script src="simulador.js"></script>
