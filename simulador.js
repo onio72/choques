@@ -201,13 +201,13 @@ function updateProgressBar() {
 }
 
 submitAnswer1.onclick = () => checkAnswer(1, mass1 * v1);
-submitAnswer2.onclick = () => checkAnswer(2, mass2 * v2);
-submitAnswer3.onclick = () => checkAnswer(3, mass1 * v1 + mass2 * v2);
+submitAnswer2.onclick = () => checkAnswer(2, 0); // La bola roja tiene velocidad 0 antes de la colisión
+submitAnswer3.onclick = () => checkAnswer(3, mass1 * v1);
 submitAnswer4.onclick = () => checkAnswer(4, (mass1 + mass2) * v1);
 submitAnswer5.onclick = () => checkAnswer(5, 'sí');
 submitAnswer6.onclick = () => checkAnswer(6, 0.5 * mass1 * Math.pow(v1, 2));
-submitAnswer7.onclick = () => checkAnswer(7, 0.5 * mass2 * Math.pow(v2, 2));
-submitAnswer8.onclick = () => checkAnswer(8, 0.5 * mass1 * Math.pow(v1, 2) + 0.5 * mass2 * Math.pow(v2, 2));
+submitAnswer7.onclick = () => checkAnswer(7, 0); // La bola roja tiene velocidad 0 antes de la colisión
+submitAnswer8.onclick = () => checkAnswer(8, 0.5 * mass1 * Math.pow(v1, 2));
 submitAnswer9.onclick = () => checkAnswer(9, 0.5 * (mass1 + mass2) * Math.pow(v1, 2));
 submitAnswer10.onclick = () => checkAnswer(10, 'no');
 
