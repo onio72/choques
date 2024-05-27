@@ -27,7 +27,7 @@
     background-color: #4caf50;
   }
   table {
-    width: 100%;
+    width: 800px;
     border-collapse: collapse;
     margin-bottom: 20px;
   }
@@ -53,8 +53,8 @@
 <span id="mass2Value">5</span>
 
 <label for="speed1" class="slider-label">Velocidad Bola Azul:</label>
-<input type="range" id="speed1" name="speed1" min="1" max="10" value="2">
-<span id="speed1Value">2</span>
+<input type="range" id="speed1" name="speed1" min="1" max="10" value="10">
+<span id="speed1Value">10</span>
 
 <br>
 
@@ -70,31 +70,46 @@
 <table>
   <thead>
     <tr>
-      <th>Momento Lineal Azul Antes</th>
-      <th>Momento Lineal Roja Antes</th>
-      <th>Momento Lineal Total Antes</th>
-      <th>Momento Lineal Azul Después</th>
-      <th>Momento Lineal Roja Después</th>
-      <th>Momento Lineal Total Después</th>
-      <th>Ec Azul Antes</th>
-      <th>Ec Roja Antes</th>
-      <th>Ec Total Antes</th>
-      <th>Ec Azul Después</th>
-      <th>Ec Roja Después</th>
-      <th>Ec Total Después</th>
+      <th></th>
+      <th>Momento Lineal Azul</th>
+      <th>Momento Lineal Roja</th>
+      <th>Momento Lineal Total</th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <td>Antes</td>
       <td id="momentoAzulAntes"></td>
       <td id="momentoRojaAntes"></td>
       <td id="momentoTotalAntes"></td>
+    </tr>
+    <tr>
+      <td>Después</td>
       <td id="momentoAzulDespues"></td>
       <td id="momentoRojaDespues"></td>
       <td id="momentoTotalDespues"></td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Ec Azul</th>
+      <th>Ec Roja</th>
+      <th>Ec Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Antes</td>
       <td id="ecAzulAntes"></td>
       <td id="ecRojaAntes"></td>
       <td id="ecTotalAntes"></td>
+    </tr>
+    <tr>
+      <td>Después</td>
       <td id="ecAzulDespues"></td>
       <td id="ecRojaDespues"></td>
       <td id="ecTotalDespues"></td>

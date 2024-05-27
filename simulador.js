@@ -122,6 +122,13 @@ function updatePositions() {
     v1 = v3 = vFinal;
     collided = true;
     x1 = x2 - radius1 - radius2; // Coloca las bolas juntas
+    // Actualiza la tabla con los valores después de la colisión
+    tableCells.momentoAzulDespues.textContent = (mass1 * v1).toFixed(2);
+    tableCells.momentoRojaDespues.textContent = (mass2 * v3).toFixed(2);
+    tableCells.momentoTotalDespues.textContent = (mass1 * v1 + mass2 * v3).toFixed(2);
+    tableCells.ecAzulDespues.textContent = (0.5 * mass1 * v1 * v1).toFixed(2);
+    tableCells.ecRojaDespues.textContent = (0.5 * mass2 * v3 * v3).toFixed(2);
+    tableCells.ecTotalDespues.textContent = (0.5 * mass1 * v1 * v1 + 0.5 * mass2 * v3 * v3).toFixed(2);
   }
 
   if (!collided) {
@@ -249,7 +256,7 @@ function resetQuestions() {
 submitAnswer1.onclick = () => checkAnswer(1, mass1 * v1);
 submitAnswer2.onclick = () => checkAnswer(2, 0); // La bola roja tiene velocidad 0 antes de la colisión
 submitAnswer3.onclick = () => checkAnswer(3, mass1 * v1 + mass2 * v2);
-submitAnswer4.onclick = () => checkAnswer(4, mass1 * v3 + mass2 * v3); // El momento lineal después de la colisión
+submitAnswer4.onclick = () => checkAnswer(4, mass1 * v1 + mass2 * v3); // El momento lineal después de la colisión
 submitAnswer5.onclick = () => checkAnswer(5, 'sí');
 submitAnswer6.onclick = () => checkAnswer(6, 0.5 * mass1 * Math.pow(v1, 2));
 submitAnswer7.onclick = () => checkAnswer(7, 0); // La bola roja tiene velocidad 0 antes de la colisión
