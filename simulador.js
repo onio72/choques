@@ -162,6 +162,7 @@ function animate() {
 startButton.onclick = () => {
   paused = false;
   slowMotion = false;
+  collided = false; // Reset the collision flag
   draw(); // Asegura que las bolas se dibujen al iniciar
   document.getElementById('questionSection').style.display = 'block'; // Muestra la sección de preguntas
   resetQuestions();
@@ -200,6 +201,7 @@ resetButton.onclick = () => {
 slowButton.onclick = () => {
   paused = false;
   slowMotion = true;
+  collided = false; // Reset the collision flag
   animate();
 };
 
@@ -225,6 +227,30 @@ function checkAnswer(questionNumber, correctAnswer) {
     incorrectAnswerCount++;
     incorrectAnswers.textContent = incorrectAnswerCount;
   }
+
+  // Actualizar la tabla con los valores a medida que se responden las preguntas
+  if (questionNumber === 1) {
+    tableCells.momentoAzulAntes.textContent = (mass1 * v1).toFixed(2);
+  } else if (questionNumber === 2) {
+    tableCells.momentoRojaAntes.textContent = (mass2 * v2).toFixed(2);
+  } else if (questionNumber === 3) {
+    tableCells.momentoTotalAntes.textContent = (mass1 * v1 + mass2 * v2).toFixed(2);
+  } else if (questionNumber === 4) {
+    tableCells.momentoAzulDespues.textContent = (mass1 * v1).toFixed(2);
+    tableCells.momentoRojaDespues.textContent = (mass2 * v3).toFixed(2);
+    tableCells.momentoTotalDespues.textContent = (mass1 * v1 + mass2 * v3).toFixed(2);
+  } else if (questionNumber === 6) {
+    tableCells.ecAzulAntes.textContent = (0.5 * mass1 * v1 * v1).toFixed(2);
+  } else if (questionNumber === 7) {
+    tableCells.ecRojaAntes.textContent = (0.5 * mass2 * v2 * v2).toFixed(2);
+  } else if (questionNumber === 8) {
+    tableCells.ecTotalAntes.textContent = (0.5 * mass1 * v1 * v1 + 0.5 * mass2 * v2 * v2).toFixed(2);
+  } else if (questionNumber === 9) {
+    tableCells.ecAzulDespues.textContent = (0.5 * mass1 * v1 * v1).toFixed(2);
+    tableCells.ecRojaDespues.textContent = (0.5 * mass2 * v3 * v3).toFixed(2);
+    tableCells.ecTotalDespues.textContent = (0.5 * mass1 * v1 * v1 + 0.5 * mass2 * v3 * v3).toFixed(2);
+  }
+
   showNextQuestion();
 }
 
@@ -253,7 +279,8 @@ function resetQuestions() {
   for (let i = 1; i <= totalQuestions; i++) {
     document.getElementById(`question${i}`).style.display = 'none';
     document.getElementById(`feedback${i}`).textContent = '';
-    document.getElementById(`answer${i}`).value = '';
+    const answerInput = document.getElementById(`answer${i}`);
+    if (answerInput) answerInput.value = '';
   }
   document.getElementById('question1').style.display = 'block';
   updateProgressBar();

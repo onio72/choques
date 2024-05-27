@@ -3,14 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simulador de Choque de Bolas v02</title>
+<title>Colisiones. Laboratorio 01</title>
 <style>
   canvas {
     border: 1px solid black;
   }
-  .slider-label {
-    display: block;
+  .slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-top: 10px;
+  }
+  .slider-label {
+    margin-right: 10px;
   }
   #questionSection {
     margin-top: 20px;
@@ -42,24 +47,30 @@
 </head>
 <body>
 
-<h1>Simulador de Choque de Bolas</h1>
-<h2>Versión 10</h2>
+<h1>Colisiones. Laboratorio 01</h1>
+<h2>Versión 11</h2>
 
-<label for="mass1" class="slider-label">Masa Bola Azul:</label>
-<input type="range" id="mass1" name="mass1" min="1" max="10" value="5">
-<span id="mass1Value">5</span>
-
-<label for="mass2" class="slider-label">Masa Bola Roja:</label>
-<input type="range" id="mass2" name="mass2" min="1" max="10" value="5">
-<span id="mass2Value">5</span>
-
-<label for="speed1" class="slider-label">Velocidad Bola Azul:</label>
-<input type="range" id="speed1" name="speed1" min="1" max="10" value="10">
-<span id="speed1Value">10</span>
+<div class="slider-container">
+  <div>
+    <label for="mass1" class="slider-label">Masa Bola Azul:</label>
+    <input type="range" id="mass1" name="mass1" min="1" max="10" value="5">
+    <span id="mass1Value">5</span>
+  </div>
+  <div>
+    <label for="mass2" class="slider-label">Masa Bola Roja:</label>
+    <input type="range" id="mass2" name="mass2" min="1" max="10" value="5">
+    <span id="mass2Value">5</span>
+  </div>
+  <div>
+    <label for="speed1" class="slider-label">Velocidad Bola Azul:</label>
+    <input type="range" id="speed1" name="speed1" min="1" max="10" value="10">
+    <span id="speed1Value">10</span>
+  </div>
+</div>
 
 <br>
 
-<button id="startButton">Iniciar</button>
+<button id="startButton">Animar</button>
 <button id="pauseButton">Pausa</button>
 <button id="resetButton">Reiniciar</button>
 <button id="slowButton">Ralentizar</button>
