@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Choque de Bolas</title>
+<style>
+  canvas {
+    border: 1px solid black;
+  }
+</style>
+</head>
+<body>
+
+<h1>Simulador de Choque de Bolas</h1>
+
+<label for="mass1">Masa Bola Azul:</label>
+<input type="range" id="mass1" name="mass1" min="1" max="10" value="5">
+<span id="mass1Value">5</span>
+
+<br>
+
+<label for="mass2">Masa Bola Roja:</label>
+<input type="range" id="mass2" name="mass2" min="1" max="10" value="5">
+<span id="mass2Value">5</span>
+
+<br>
+
+<button id="startButton">Iniciar</button>
+<button id="pauseButton">Pausa</button>
+<button id="resetButton">Reiniciar</button>
+
+<br><br>
+
+<canvas id="canvas" width="800" height="400"></canvas>
+
+<script src="simulador.js"></script>
+
+</body>
+</html>
