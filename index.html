@@ -8,21 +8,27 @@
   canvas {
     border: 1px solid black;
   }
+  .slider-label {
+    display: block;
+    margin-top: 10px;
+  }
 </style>
 </head>
 <body>
 
 <h1>Simulador de Choque de Bolas</h1>
 
-<label for="mass1">Masa Bola Azul:</label>
+<label for="mass1" class="slider-label">Masa Bola Azul:</label>
 <input type="range" id="mass1" name="mass1" min="1" max="10" value="5">
 <span id="mass1Value">5</span>
 
-<br>
-
-<label for="mass2">Masa Bola Roja:</label>
+<label for="mass2" class="slider-label">Masa Bola Roja:</label>
 <input type="range" id="mass2" name="mass2" min="1" max="10" value="5">
 <span id="mass2Value">5</span>
+
+<label for="speed1" class="slider-label">Velocidad Bola Azul:</label>
+<input type="range" id="speed1" name="speed1" min="1" max="10" value="2">
+<span id="speed1Value">2</span>
 
 <br>
 
