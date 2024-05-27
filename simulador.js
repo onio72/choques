@@ -15,8 +15,11 @@ const resetButton = document.getElementById('resetButton');
 const slowButton = document.getElementById('slowButton');
 
 const correctAnswers = document.getElementById('correctAnswers');
+const progressBar = document.getElementById('progressBar');
 
 let correctAnswerCount = 0;
+let currentQuestion = 1;
+const totalQuestions = 10;
 
 let mass1 = parseInt(mass1Slider.value);
 let mass2 = parseInt(mass2Slider.value);
@@ -162,8 +165,6 @@ slowButton.onclick = () => {
 
 // Preguntas y respuestas
 
-let currentQuestion = 1;
-
 function checkAnswer(questionNumber, correctAnswer) {
   const answerInput = document.getElementById(`answer${questionNumber}`);
   const feedback = document.getElementById(`feedback${questionNumber}`);
@@ -187,10 +188,16 @@ function showNextQuestion() {
   const currentQuestionElement = document.getElementById(`question${currentQuestion}`);
   currentQuestionElement.style.display = 'none';
   currentQuestion++;
-  if (currentQuestion <= 10) {
+  updateProgressBar();
+  if (currentQuestion <= totalQuestions) {
     const nextQuestionElement = document.getElementById(`question${currentQuestion}`);
     nextQuestionElement.style.display = 'block';
   }
+}
+
+function updateProgressBar() {
+  const progress = (currentQuestion - 1) / totalQuestions * 100;
+  progressBar.style.width = progress + '%';
 }
 
 submitAnswer1.onclick = () => checkAnswer(1, mass1 * v1);

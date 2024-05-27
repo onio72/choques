@@ -15,6 +15,17 @@
   #questionSection {
     margin-top: 20px;
   }
+  .progress-bar {
+    width: 100%;
+    background-color: #f3f3f3;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+  }
+  .progress {
+    width: 0;
+    height: 20px;
+    background-color: #4caf50;
+  }
 </style>
 </head>
 <body>
@@ -104,6 +115,9 @@
     <input type="text" id="answer10" placeholder="Respuesta"><span> (Sí/No)</span>
     <button id="submitAnswer10">Enviar</button>
     <p id="feedback10"></p>
+  </div>
+  <div class="progress-bar">
+    <div class="progress" id="progressBar"></div>
   </div>
   <p>Respuestas correctas: <span id="correctAnswers">0</span></p>
 </div>
