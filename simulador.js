@@ -134,6 +134,7 @@ function animate() {
 startButton.onclick = () => {
   paused = false;
   slowMotion = false;
+  draw(); // Asegura que las bolas se dibujen al iniciar
   animate();
 };
 
