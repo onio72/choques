@@ -9,6 +9,7 @@ const mass2Value = document.getElementById('mass2Value');
 const startButton = document.getElementById('startButton');
 const pauseButton = document.getElementById('pauseButton');
 const resetButton = document.getElementById('resetButton');
+const slowButton = document.getElementById('slowButton');
 
 let mass1 = parseInt(mass1Slider.value);
 let mass2 = parseInt(mass2Slider.value);
@@ -21,9 +22,11 @@ let x2 = 500;
 
 let v1 = 2;
 let v2 = 0;
+let collided = false;
 
 let animationId;
 let paused = false;
+let slowMotion = false;
 
 mass1Slider.oninput = () => {
   mass1 = parseInt(mass1Slider.value);
@@ -60,14 +63,14 @@ function drawBalls() {
   ctx.fillStyle = 'blue';
   ctx.fill();
   ctx.stroke();
-  ctx.fillText(`v=${v1.toFixed(2)}`, x1 - 10, canvas.height / 2 - radius1 - 10);
+  ctx.fillText(`v=${v1.toFixed(2)} m/s`, x1 - 10, canvas.height / 2 - radius1 - 10);
 
   ctx.beginPath();
   ctx.arc(x2, canvas.height / 2, radius2, 0, Math.PI * 2);
   ctx.fillStyle = 'red';
   ctx.fill();
   ctx.stroke();
-  ctx.fillText(`v=${v2.toFixed(2)}`, x2 - 10, canvas.height / 2 - radius2 - 10);
+  ctx.fillText(`v=${v2.toFixed(2)} m/s`, x2 - 10, canvas.height / 2 - radius2 - 10);
 }
 
 function draw() {
@@ -76,21 +79,24 @@ function draw() {
 }
 
 function updatePositions() {
-  if (x1 + radius1 >= x2 - radius2) {
-    const v1Final = ((mass1 - mass2) / (mass1 + mass2)) * v1 + ((2 * mass2) / (mass1 + mass2)) * v2;
-    const v2Final = ((2 * mass1) / (mass1 + mass2)) * v1 + ((mass2 - mass1) / (mass1 + mass2)) * v2;
-    v1 = v1Final;
-    v2 = v2Final;
+  if (!collided && x1 + radius1 >= x2 - radius2) {
+    const vFinal = (mass1 * v1 + mass2 * v2) / (mass1 + mass2);
+    v1 = v2 = vFinal;
+    collided = true;
+    x1 = x2 - radius1 - radius2; // Coloca las bolas juntas
   }
-  
-  x1 += v1;
-  x2 += v2;
 
-  if (x1 - radius1 < 0 || x1 + radius1 > canvas.width) {
-    v1 = -v1;
+  if (!collided) {
+    x1 += v1;
+  } else {
+    x1 += v1;
+    x2 = x1 + radius1 + radius2;
   }
-  if (x2 - radius2 < 0 || x2 + radius2 > canvas.width) {
-    v2 = -v2;
+
+  // Si las bolas han salido del borde derecho, detener la animación
+  if (x1 - radius1 > canvas.width || x2 - radius2 > canvas.width) {
+    paused = true;
+    cancelAnimationFrame(animationId);
   }
 }
 
@@ -102,8 +108,19 @@ function animate() {
   }
 }
 
+function slowAnimate() {
+  if (!paused) {
+    updatePositions();
+    draw();
+    setTimeout(() => {
+      animationId = requestAnimationFrame(slowAnimate);
+    }, 100);
+  }
+}
+
 startButton.onclick = () => {
   paused = false;
+  slowMotion = false;
   animate();
 };
 
@@ -119,7 +136,14 @@ resetButton.onclick = () => {
   x2 = 500;
   v1 = 2;
   v2 = 0;
+  collided = false;
   draw();
+};
+
+slowButton.onclick = () => {
+  paused = false;
+  slowMotion = true;
+  slowAnimate();
 };
 
 draw();
